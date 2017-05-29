@@ -1,0 +1,25 @@
+version: '2'
+services:
+  web1:
+    image: lbarman/prifi-demo:latest
+    volumes:
+      - ./scripts:/scripts
+    environment:
+      - STARTUPSCRIPT=/scripts/client.sh
+      - WEBSITE=www.youtube.com
+      - HOME=/home/ubuntu
+      - SHELL=/bin/bash
+    working_dir: /root
+    ports:
+      - 8000:80
+  relay:
+    image: lbarman/prifi-demo:latest
+    volumes:
+      - ./scripts:/scripts
+    environment:
+      - STARTUPSCRIPT=/scripts/relay.sh
+      - HOME=/home/ubuntu
+      - SHELL=/bin/bash
+    working_dir: /root
+    ports:
+      - 9000:80
