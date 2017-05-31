@@ -8,7 +8,7 @@ ENV TINI_VERSION v0.9.0
 RUN apt-get update \
     && apt-get upgrade -y \
     && apt-get dist-upgrade -y \
-    && apt-get install -y --no-install-recommends --allow-unauthenticated xdotool nload wireshark iptables linux-headers-generic \
+    && apt-get install -y --no-install-recommends --allow-unauthenticated xdotool nload wireshark iptables golang linux-headers-generic \
     && apt-get autoclean \
     && apt-get autoremove \
     && rm -rf /var/lib/apt/lists/*
