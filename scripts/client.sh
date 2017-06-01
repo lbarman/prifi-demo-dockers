@@ -1,4 +1,5 @@
-sudo ifconfig eth0 "$IP" netmask 255.255.255.0
+sudo route del default
+sudo route add default gateway relay
 
 while true
 do
