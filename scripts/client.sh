@@ -1,5 +1,15 @@
+#quick fix, sometime this does not exists
+if [ ! -d "/tmp" ]; then
+  echo "Creating /tmp"
+  sudo mkdir /tmp
+fi
+
+echo "Changing route to pass by relay..."
 sudo route del default
 sudo route add default gateway relay
+
+echo "Sleeping 20sec..."
+sleep 20
 
 while true
 do
@@ -9,7 +19,8 @@ do
   #start firefox at the given url
   PROFILENAME=testProfile
   PROFILEDIR=/tmp/firefoxCache
-  firefox -CreateProfile "$PROFILENAME $PROFILEDIR"
+  DISPLAY=":1" firefox -CreateProfile "$PROFILENAME $PROFILEDIR"
+  sleep 1
   DISPLAY=":1" firefox -P "$PROFILENAME" "$WEBSITE" -private &
   sleep 5
 

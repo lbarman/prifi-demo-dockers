@@ -7,7 +7,7 @@ services:
       - ./prifi:/prifi
     environment:
       - STARTUPSCRIPT=/scripts/client.sh
-      - WEBSITE=www.youtube.com
+      - WEBSITE=http://red.jwhite-srv.net
       - HOME=/home/ubuntu
       - SHELL=/bin/bash
     working_dir: /root
