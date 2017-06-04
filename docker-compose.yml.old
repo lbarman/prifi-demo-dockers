@@ -1,22 +1,23 @@
 version: '2'
 services:
-  client1:
-    container_name: client1
+  web1:
     image: lbarman/prifi-demo:latest
     volumes:
       - ./scripts:/scripts:ro
       - ./prifi:/prifi
     environment:
       - STARTUPSCRIPT=/scripts/client.sh
-      - WEBSITE=http://speedtest.ftp.otenet.gr/files/test1Gb.db
+      - WEBSITE=http://red.jwhite-srv.net
       - HOME=/home/ubuntu
       - SHELL=/bin/bash
       - TERM=xterm
     working_dir: /root
+    privileged: true
     ports:
       - 8000:80
-  client2:
-    container_name: client2
+    links:
+      - relay
+  web2:
     image: lbarman/prifi-demo:latest
     volumes:
       - ./scripts:/scripts:ro
@@ -28,5 +29,22 @@ services:
       - SHELL=/bin/bash
       - TERM=xterm
     working_dir: /root
+    privileged: true
     ports:
       - 8001:80
+    links:
+      - relay
+  relay:
+    image: lbarman/prifi-demo:latest
+    volumes:
+      - ./scripts:/scripts:ro
+      - ./prifi:/prifi
+    environment:
+      - STARTUPSCRIPT=/scripts/relay.sh
+      - HOME=/home/ubuntu
+      - SHELL=/bin/bash
+      - TERM=xterm
+    working_dir: /root
+    privileged: true
+    ports:
+      - 9000:80

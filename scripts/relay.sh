@@ -10,10 +10,10 @@ sudo iptables -t nat -A POSTROUTING -j MASQUERADE
 sudo iptables -A FORWARD -j ACCEPT
 echo "Added traffic forwarding rules"
 
+exit 0
+
 echo "Sleeping 20sec..."
 sleep 20
-echo "Starting wireshark"
-DISPLAY=":1" wireshark &
 
 while true
 do
