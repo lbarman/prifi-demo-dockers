@@ -90,7 +90,7 @@ sub main {
 	} else {
 	    print PIPE "set terminal $terminal noraise\n";
 	}
-	print PIPE "set autoscale\n";
+	print PIPE "set yrange [0:100000]\n";
 	my @data = [];
 	push @buffers, @data;
 	push @xcounters, 0;

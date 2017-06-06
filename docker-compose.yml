@@ -1,4 +1,4 @@
-version: '2'
+version: '2.1'
 services:
   client1:
     container_name: client1
@@ -11,10 +11,17 @@ services:
       - WEBSITE=http://speedtest.ftp.otenet.gr/files/test1Gb.db
       - HOME=/home/ubuntu
       - SHELL=/bin/bash
+      - NGINXIP=172.20.0.10
       - TERM=xterm
     working_dir: /root
+    privileged: true
     ports:
       - 8000:80
+    networks:
+      web:
+        ipv4_address: 172.10.0.10
+      control:
+        ipv4_address: 172.20.0.10
   client2:
     container_name: client2
     image: lbarman/prifi-demo:latest
@@ -26,7 +33,30 @@ services:
       - WEBSITE=https://www.youtube.com/watch?v=rDBbaGCCIhk&index=3&list=RDrVw5UUKKzM8
       - HOME=/home/ubuntu
       - SHELL=/bin/bash
+      - NGINXIP=172.20.0.11
       - TERM=xterm
     working_dir: /root
+    privileged: true
     ports:
       - 8001:80
+    networks:
+      web:
+        ipv4_address: 172.10.0.11
+      control:
+        ipv4_address: 172.20.0.11
+
+networks:
+  web:
+    driver: bridge
+    enable_ipv6: false
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.10.0.0/24
+  control:
+    driver: bridge
+    enable_ipv6: false
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.20.0.0/24

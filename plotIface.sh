@@ -8,4 +8,4 @@ ypos=100
 
 pos=$(($xpos+$w))
 
-./ifaceSample.sh "$iface" | ./driveGnuPlots.pl 2 100 100 "Up ($name)" "Down ($name)" "${w}x${h}+${xpos}+${ypos}" "${w}x${h}+${pos}+${ypos}"
+./ifaceSample.sh "$iface" | ./driveGnuPlots.pl 2 100 100 "Incoming ($name)" "Outgoing ($name)" "${w}x${h}+${xpos}+${ypos}" "${w}x${h}+${pos}+${ypos}"
