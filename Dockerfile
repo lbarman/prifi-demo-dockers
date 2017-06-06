@@ -16,6 +16,7 @@ ADD image /
 
 EXPOSE 80
 WORKDIR /root
+ENV GOPATH=/go
 ENV WEBSITE=www.youtube.com
 ENV HOME=/home/ubuntu \
     SHELL=/bin/bash
