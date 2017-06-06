@@ -14,10 +14,11 @@ sudo docker-compose up -d
 echo "Waiting for the images to boot..."
 sleep 5
 
+count=0
 for c in client1 client2 client3
 do
     #remove old scripts
-    rm -f nload_$c.sh
+    rm -f plot_$c.sh
     rm -f bash_$c.sh
 
     ifindex1=$(sudo docker exec $c bash -c "cat /sys/class/net/eth0/iflink")
@@ -30,8 +31,9 @@ do
             echo "$c -> $ifaceName"
 
             #write startup script for nload
-            echo "nload $ifaceName -t 200" > nload_$c.sh
-            chmod u+x nload_$c.sh
+            echo "./plotIface.sh $ifaceName $c $count" > plot_$c.sh
+            chmod u+x plot_$c.sh
+            count=$(($count+1))
 
             #write interactive bash script for containers
             echo "sudo docker exec -it $c /bin/bash" > bash_$c.sh
