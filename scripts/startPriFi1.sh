@@ -1,0 +1,1 @@
+cd /prifi && ./prifi.sh client-d 1

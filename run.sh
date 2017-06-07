@@ -21,6 +21,10 @@ function ctrl_c() {
     exit 0
 }
 
+xpos=1600
+ypos=0
+w=500
+h=400
 
 sudo systemctl start docker
 sudo docker-compose up -d
@@ -52,7 +56,7 @@ do
             echo "$c WEB -> $ifaceName"
 
             #write startup script for nload
-            echo "./plotIface.sh $ifaceName $c $count" > plot_web_$c.sh
+            echo "./plotIface.sh $ifaceName $c $xpos $ypos $w $h" > plot_web_$c.sh
             chmod u+x plot_web_$c.sh
             count=$(($count+1))
         fi
@@ -70,11 +74,13 @@ do
             echo "$c VNC -> $ifaceName"
 
             #write startup script for nload
-            echo "./plotIface.sh $ifaceName $c $count" > plot_vnc_$c.sh
+            echo "./plotIface.sh $ifaceName $c $xpos $ypos $w $h" > plot_vnc_$c.sh
             chmod u+x plot_vnc_$c.sh
             count=$(($count+1))
         fi
     done
+    
+    ypos=$(($ypos+$h+20))
 done
 
 i=0

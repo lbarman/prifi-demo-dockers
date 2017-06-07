@@ -1,10 +1,10 @@
 iface=$1
 name=$2
 
-w=500
-h=400
-xpos=100
-ypos=100
+xpos=$3
+ypos=$4
+w=$5
+h=$6
 
 pos=$(($xpos+$w))
 
