@@ -4,6 +4,20 @@ trap ctrl_c INT
 function ctrl_c() {
     echo "*** CTRL-C"
     sudo docker-compose down
+
+    #remove the scripts
+    for c in client1 client2 relay
+    do
+        rm -f plot_web_$c.sh
+        rm -f plot_vnc_$c.sh
+        rm -f bash_$c.sh
+    done
+
+    #remove prifi logs
+    rm -f prifi/relay.log
+    rm -f prifi/trustee0.log
+    rm -f prifi/trustee1.log
+
     exit 0
 }
 
@@ -15,7 +29,7 @@ echo "Waiting for the images to boot..."
 sleep 5
 
 count=0
-for c in client1 client2 client3
+for c in client1 client2 relay
 do
     #remove old scripts
     rm -f plot_web_$c.sh

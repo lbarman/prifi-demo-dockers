@@ -4,11 +4,11 @@ services:
     container_name: client1
     image: lbarman/prifi-demo:latest
     volumes:
-      - ./prifi:/prifi:ro
+      - ./prifi:/prifi
       - ./scripts:/scripts:ro
     environment:
       - STARTUPSCRIPT=/scripts/client.sh
-      - WEBSITE=http://speedtest.ftp.otenet.gr/files/test1Gb.db
+      - WEBSITE=http://red.jwhite-srv.net/
       - HOME=/home/ubuntu
       - SHELL=/bin/bash
       - NGINXIP=172.20.0.10
@@ -26,7 +26,7 @@ services:
     container_name: client2
     image: lbarman/prifi-demo:latest
     volumes:
-      - ./prifi:/prifi:ro
+      - ./prifi:/prifi
       - ./scripts:/scripts:ro
     environment:
       - STARTUPSCRIPT=/scripts/client.sh
@@ -44,6 +44,27 @@ services:
         ipv4_address: 172.10.0.11
       control:
         ipv4_address: 172.20.0.11
+  relay:
+    container_name: relay
+    image: lbarman/prifi-demo:latest
+    volumes:
+      - ./prifi:/prifi
+      - ./scripts:/scripts:ro
+    environment:
+      - STARTUPSCRIPT=/scripts/relay.sh
+      - HOME=/home/ubuntu
+      - SHELL=/bin/bash
+      - NGINXIP=172.20.0.100
+      - TERM=xterm
+    working_dir: /root
+    privileged: true
+    ports:
+      - 9000:80
+    networks:
+      web:
+        ipv4_address: 172.10.0.100
+      control:
+        ipv4_address: 172.20.0.100
 
 networks:
   web:
