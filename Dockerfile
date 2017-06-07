@@ -10,9 +10,14 @@ RUN rm -f "/etc/apt/sources.list.d/arc-theme.list"
 RUN apt-get update \
     && apt-get upgrade -y \
     && apt-get dist-upgrade -y \
-    && apt-get install -y --no-install-recommends --allow-unauthenticated xdotool nload wireshark wget iptables golang linux-headers-generic nano
+    && apt-get install -y --no-install-recommends --allow-unauthenticated xdotool nload wireshark wget iptables golang linux-headers-generic nano git
 
 ADD image /
+
+# /prifi2 is only for install
+ADD prifi /prifi2 
+
+RUN cd /prifi2 && ./prifi.sh install
 
 EXPOSE 80
 WORKDIR /root
