@@ -3,7 +3,7 @@ function loadWebPage {
   page="$1"
   duration="$2"
 
-  echo "Loading $page for max $duration"
+  echo "Loading $page"
 
   # create a temporary profile
   PROFILENAME=testProfile
@@ -18,15 +18,15 @@ function loadWebPage {
   # sends F11
   DISPLAY=":1" xdotool search --sync --onlyvisible --class "Firefox" windowactivate key F11
 
-  echo "Waiting $duration..."
-  sleep $duration
+  #echo "Waiting $duration..."
+  #sleep $duration
 
-  echo "Cleaning resources"
-  pkill firefox
-  rm -rf /home/ubuntu/.mozilla
-  rm -rf /tmp
-  rm -rf /home/ubuntu/Downloads
-  echo ""
+  #echo "Cleaning resources"
+  #pkill firefox
+  #rm -rf /home/ubuntu/.mozilla
+  #rm -rf /tmp
+  #rm -rf /home/ubuntu/Downloads
+  #echo ""
 }
 
 #quick fix, sometime this does not exists
@@ -42,8 +42,9 @@ fi
 echo "Sleeping 20sec..."
 sleep 20
 
+loadWebPage "$WEBSITE" 20
+
 while true
 do
-  #loadWebPage "$WEBSITE" 20
   sleep 20
 done
