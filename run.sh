@@ -41,7 +41,7 @@ do
     rm -f bash_$c.sh
 
     #write interactive bash script for containers
-    echo "sudo docker exec -it $c /bin/bash" > bash_$c.sh
+    echo "sudo docker exec -it $c /bin/bash -c 'cd /prifi; /bin/bash'" > bash_$c.sh
     chmod u+x bash_$c.sh
 
     #find the interface where the web traffic goes
@@ -56,7 +56,7 @@ do
             echo "$c WEB -> $ifaceName"
 
             #write startup script for nload
-            echo "./plotIface.sh $ifaceName $c $xpos $ypos $w $h" > plot_web_$c.sh
+            echo "./plotIface.sh $ifaceName $c \$1 \$2 $w $h" > plot_web_$c.sh
             chmod u+x plot_web_$c.sh
             count=$(($count+1))
         fi
@@ -74,13 +74,11 @@ do
             echo "$c VNC -> $ifaceName"
 
             #write startup script for nload
-            echo "./plotIface.sh $ifaceName $c $xpos $ypos $w $h" > plot_vnc_$c.sh
+            echo "./plotIface.sh $ifaceName $c \$1 \$2 $w $h" > plot_vnc_$c.sh
             chmod u+x plot_vnc_$c.sh
             count=$(($count+1))
         fi
     done
-    
-    ypos=$(($ypos+$h+20))
 done
 
 i=0

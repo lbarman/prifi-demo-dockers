@@ -6,8 +6,10 @@ function ctrl_c() {
     exit 0
 }
 
-./plot_web_client1.sh &
-./plot_web_client2.sh &
+pos=$(($2+420))
+
+./plot_web_client1.sh $1 $2 &
+./plot_web_client2.sh $1 $pos &
 
 while true
 do
